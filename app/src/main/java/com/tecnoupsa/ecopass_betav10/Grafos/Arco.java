@@ -26,4 +26,6 @@ public class Arco {
     public void setNombreVertD(Vertice vd) {
         this.verticeD = vd;
     }
+
+    //Holi pozoli
 }
