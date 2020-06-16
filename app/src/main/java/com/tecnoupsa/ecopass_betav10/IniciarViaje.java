@@ -23,7 +23,7 @@ public class IniciarViaje extends AppCompatActivity {
 
         generarQR();
     }
-//Esto es una prueba de commit
+//Esto es una prueba de commit xd
     public void generarQR(){
         String texto = "Hola mundo";
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
