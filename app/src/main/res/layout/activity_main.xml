@@ -4,29 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_ecopass"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="286dp"
         android:layout_height="123dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="212dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:text="Usuario"
-            android:textAlignment="center"
-            android:gravity="center_horizontal"/>
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/txtMainNombre"
@@ -41,43 +42,60 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textAlignment="center"
+            android:gravity="center_horizontal"
             android:text="Puntos"
-            android:gravity="center_horizontal" />
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/txtPuntos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textAlignment="center"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"
+            android:textAlignment="center" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="272dp"
-        android:layout_height="224dp"
-        android:orientation="vertical"
+        android:layout_width="316dp"
+        android:layout_height="102dp"
         android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.154">
 
         <Button
             android:id="@+id/btnIniciarViaje"
+            style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Iniciar Viaje" />
+            android:text="Iniciar Viaje"
+            android:textColor="@color/common_google_signin_btn_text_light_focused" />
 
         <Button
             android:id="@+id/btnVerRuta"
+            style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ver Ruta" />
-
+            android:text="Ver Ruta"
+            android:textColor="@color/common_google_signin_btn_text_light_focused" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="179dp"
+        android:layout_height="184dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.001"
+        app:srcCompat="@drawable/hojita" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
