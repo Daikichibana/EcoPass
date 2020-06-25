@@ -9,11 +9,14 @@
 
     <ImageView
         android:id="@+id/imageView7"
-        android:layout_width="362dp"
-        android:layout_height="125dp"
-        android:layout_marginTop="60dp"
+        android:layout_width="296dp"
+        android:layout_height="92dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/destino_final_1" />
+        app:layout_constraintVertical_bias="0.236"
+        app:srcCompat="@drawable/has_llegado" />
 </androidx.constraintlayout.widget.ConstraintLayout>
