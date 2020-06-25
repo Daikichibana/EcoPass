@@ -2,19 +2,19 @@ package com.tecnoupsa.ecopass_betav10.Grafos;
 
 
 public class Arco {
-    private float costo;
+    private int costo;
     private Vertice verticeD;
 
-    public Arco(Vertice vd, float co) {
+    public Arco(Vertice vd, int co) {
         this.costo = co;
         this.verticeD = vd;
     }
 
-    public void setCosto(float co) {
+    public void setCosto(int co) {
         this.costo = co;
     }
 
-    public float getCosto()  {
+    public int getCosto()  {
         return costo;
     }
 

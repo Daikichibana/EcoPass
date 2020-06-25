@@ -8,12 +8,14 @@ public class Vertice
     Double latitud;
     Double longitud;
     public Lista LArcos;
+    boolean marcado;
 
     public Vertice(String nom, Double lat, Double log)   {
         nombre = nom;
         latitud = lat;
         longitud = log;
         LArcos = new Lista();
+        this.marcado=false;
     }
 
     public void setNombre(String nom) {
