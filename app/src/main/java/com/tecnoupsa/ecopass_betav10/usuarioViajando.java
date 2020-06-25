@@ -1,14 +1,12 @@
 package com.tecnoupsa.ecopass_betav10;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -18,7 +16,6 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
-
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.tecnoupsa.ecopass_betav10.Clases.Usuario;
 
@@ -29,33 +26,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class IniciarViaje extends AppCompatActivity {
+public class usuarioViajando extends AppCompatActivity {
 
-    ImageView QR;
-    private TextView estado;
-    String id;
     Usuario us;
-
+    String id = "";
+    ImageView QR;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_iniciar_viaje);
-
-        QR = findViewById(R.id.QR);
-        estado = findViewById(R.id.estado);
+        setContentView(R.layout.activity_comienzo_viaje);
+        QR = findViewById(R.id.QR2);
         time task = new time();
         task.execute();
-
         us = obtenerDatosUsuario();
-        id = us.getId();
-
-        if(us!=null)
+        if(us != null) {
+            id = us.getId();
             generarQR(id);
+        }
+        Toast.makeText(usuarioViajando.this, "Que tengas un buen viaje!", Toast.LENGTH_SHORT).show();
     }
 
-    //Genera el codigo QR
     public void generarQR(String id){
-        String texto = id + "," + "Iniciar";
+        String texto = id + "," + "Finalizar";
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
 
         try{
@@ -67,7 +59,6 @@ public class IniciarViaje extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
 
     public void hilo(){
         try {
@@ -120,9 +111,7 @@ public class IniciarViaje extends AppCompatActivity {
                                 JSONObject datos = response.getJSONObject("data");
                                 String estadoViaje = datos.getString("viajando");
 
-                                estado.setText(estadoViaje);
-
-                                if(estado.getText().equals("true")){
+                                if(estadoViaje.equals("false")){
                                     if(us != null)
                                         cambiarVentana(us);
                                 } else {
@@ -131,22 +120,22 @@ public class IniciarViaje extends AppCompatActivity {
 
 
                             } else {
-                                Toast.makeText(IniciarViaje.this, "No existen datos.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(usuarioViajando.this, "No existen datos.", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
-                            Toast.makeText(IniciarViaje.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(usuarioViajando.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onError(ANError anError) {
-                        Toast.makeText(IniciarViaje.this, "Error: " + anError.getErrorDetail(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(usuarioViajando.this, "Error: " + anError.getErrorDetail(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
     public void cambiarVentana(Usuario us){
-        Intent i = new Intent(getApplicationContext(), usuarioViajando.class);
+        Intent i = new Intent(getApplicationContext(), DestinoFinal.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("usuario", us);
         i.putExtras(bundle);
@@ -162,4 +151,6 @@ public class IniciarViaje extends AppCompatActivity {
         else
             return null;
     }
+
+
 }

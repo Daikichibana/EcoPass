@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_ecopass">
+    android:background="@drawable/background_ecopass"
+    tools:context=".usuarioViajando">
 
     <ImageView
         android:id="@+id/imageView4"
@@ -13,22 +14,22 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.339"
+
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/comienzo_viaje" />
 
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="334dp"
-        android:layout_height="124dp"
+        android:layout_height="100dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.531">
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/textView12"
@@ -43,18 +44,36 @@
             android:layout_height="68dp"
             android:gravity="center"
             android:text="(Contadors)" />
+
+
     </LinearLayout>
+
+
+
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="433dp"
-        android:layout_height="170dp"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.117"
+        app:layout_constraintVertical_bias="0.05"
         app:srcCompat="@drawable/ecopass_01" />
+
+    <ImageView
+        android:id="@+id/QR2"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintVertical_bias="0.542"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

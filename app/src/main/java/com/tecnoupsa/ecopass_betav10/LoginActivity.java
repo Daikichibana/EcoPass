@@ -2,9 +2,8 @@ package com.tecnoupsa.ecopass_betav10;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +14,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.tecnoupsa.ecopass_betav10.Clases.Usuario;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,9 +22,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity  {
 
     EditText usuario;
+    EditText clave;
     Button btnlogin;
 
     @Override
@@ -33,69 +34,82 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         usuario = findViewById(R.id.txtNombreUsuario);
+        clave = findViewById(R.id.txtClave);
         btnlogin = findViewById(R.id.btnLogin);
-
-        SharedPreferences preferencias = getSharedPreferences("datos", Context.MODE_PRIVATE);
-
-        boolean estado = preferencias.getBoolean("datos", false);
 
 
             btnlogin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    conectar();
+                    String id = usuario.getText().toString();
+                    Conectar(id);
                 }
             });
 
     }
 
-    public void conectar(){
-        if(isValidarCampos()) {
-            String id = usuario.getText().toString();
-            Map<String, String> datos = new HashMap<>();
-            datos.put("id", id);
+    public void Conectar(String ID){
+        Map<String, String> datos = new HashMap<>();
+        datos.put("id", ID);
+        AndroidNetworking.post(constantes.URL_OBTENERUSUARIOPORID)
+                .addJSONObjectBody(new JSONObject(datos))
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject datos = response.getJSONObject("data");
+                            String id = datos.getString("id");
+                            String nombre = datos.getString("nombre");
+                            String apellido = datos.getString("apellido");
+                            String clave = datos.getString("clave");
 
-            AndroidNetworking.post(constantes.URL_OBTENERPORID)
-                    .addJSONObjectBody(new JSONObject(datos))
-                    .setPriority(Priority.MEDIUM)
-                    .build()
-                    .getAsJSONObject(new JSONObjectRequestListener() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                String estado = response.getString("estado");
-                                Toast.makeText(LoginActivity.this, estado, Toast.LENGTH_SHORT).show();
-                                if(estado.equals("Se obtuvieron los datos correctamente")){
-                                    iniciarSesion();
-                                }
-                            } catch (JSONException e) {
-                                Toast.makeText(LoginActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
+                            Usuario us = new Usuario(id,nombre,apellido,clave);
 
-                        @Override
-                        public void onError(ANError anError) {
-                            Toast.makeText(LoginActivity.this, "Error: " + anError.getErrorDetail(), Toast.LENGTH_SHORT).show();
+                            if(verificarCuenta(us))
+                                iniciarSesion(us);
+
+                        } catch (JSONException e) {
+                            Toast.makeText(LoginActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        Toast.makeText(LoginActivity.this, "Error: " + anError.getErrorDetail(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+    }
+
+    public Boolean verificarCuenta(Usuario us) {
+        if (isValidarCampos()) {
+            String IDText = usuario.getText().toString();
+            String CLAVEText = clave.getText().toString();
+
+            if (us.getId().equals(IDText) && us.getClave().equals(CLAVEText)) {
+                return true;
+            } else {
+                Toast.makeText(LoginActivity.this, "Intente de nuevo", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+        } else {
+            return false;
         }
     }
 
     private boolean isValidarCampos(){
-        return !usuario.getText().toString().trim().isEmpty();
+        return !usuario.getText().toString().trim().isEmpty() && !clave.getText().toString().trim().isEmpty();
     }
 
-    public void iniciarSesion(){
+    public void iniciarSesion(Usuario us){
         Intent i = new Intent(this, MainActivity.class);
-        guardarSesion();
-        i.putExtra("id",usuario.getText().toString());
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("usuario", us);
+        i.putExtras(bundle);
         startActivity(i);
     }
 
-    public void guardarSesion(){
-        SharedPreferences preferencias = getSharedPreferences("datos", Context.MODE_PRIVATE);
-        SharedPreferences.Editor Obj_editor =  preferencias.edit();
-        Obj_editor.putBoolean("datos", true);
-        Obj_editor.commit();
-    }
 }

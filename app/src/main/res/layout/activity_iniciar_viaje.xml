@@ -1,51 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_ecopass"
     android:orientation="vertical"
     tools:context=".IniciarViaje">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="278dp"
-        android:layout_marginTop="50dp"
-        android:orientation="vertical">
+        android:id="@+id/linearLayout4"
+        android:layout_width="334dp"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:layout_constraintVertical_bias="0.01">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="425dp"
-            android:layout_height="274dp"
-            app:srcCompat="@drawable/ic_launcher_background" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="356dp"
-        android:orientation="vertical">
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView7"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginRight="40dp"
-            android:orientation="horizontal">
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="Estado:" />
 
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:text="Estado:" />
+        <TextView
+            android:id="@+id/estado"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="NA" />
 
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
-        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+
+    <ImageView
+        android:id="@+id/QR"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05"
+        app:srcCompat="@drawable/ecopass_01" />
+</androidx.constraintlayout.widget.ConstraintLayout>
