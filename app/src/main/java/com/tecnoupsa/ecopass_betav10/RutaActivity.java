@@ -117,4 +117,25 @@ public class RutaActivity extends FragmentActivity implements OnMapReadyCallback
         return g;
     }
 
+    public String Dijkstra(Grafo g,String o,String d)
+    {
+        String c=new String();
+        String[] caminos;
+        String cc;
+        c= G1.caminoCortoDFS(o,d);
+        caminos= G1.caminos(c,o,d);
+        cc= G2.comparar(caminos,o,d);
+        return cc;
+    }
+    public int DevCosto(String o,String d)
+    {
+        String c=new String();
+        String[] caminos;
+        int x;
+        c= G1.caminoCortoDFS(o,d);
+        caminos= G1.caminos(c,o,d);
+        x= G2.devolverCosto(caminos,o,d);
+        return x;
+    }
+
 }
