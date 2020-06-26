@@ -2,8 +2,15 @@ package com.tecnoupsa.ecopass_betav10;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -34,15 +41,38 @@ public class RutaActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        Button verCamino;
+        Spinner spinner;
+        Spinner spinner2;
         //Cargar los grafos
         G1 = crearVertices(new Grafo());
         G1 = crearArcosRutaA(G1);
-        G2 = crearVertices(new Grafo());
-        G2 = crearArcosRutaB(G2);
+
 
         cargarMarkers();
         mMap.animateCamera( CameraUpdateFactory.zoomTo( 14.0f ) );
+        verCamino = findViewById(R.id.verCamino);
+
+        spinner = (Spinner) findViewById(R.id.spinner);
+        spinner2 = (Spinner) findViewById(R.id.spinner2);
+
+        String[] datos = new String[] {"A", "B", "C", "D", "E","F","G","H","I","J","K","L"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, datos);
+
+        spinner.setAdapter(adapter);
+        spinner2.setAdapter(adapter);
+
+        verCamino.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String origen = spinner.getSelectedItem().toString();
+                String destino = spinner2.getSelectedItem().toString();
+                mMap.clear();
+                cargarMarkers();
+                graficarMapa(origen,destino);
+            }
+        });
     }
 //comentario
     public void cargarMarkers(){
@@ -58,10 +88,6 @@ public class RutaActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng Centro = new LatLng(-17.783237, -63.182255); //Enfoca la camara hacia el centro de la ciudad
         mMap.moveCamera(CameraUpdateFactory.newLatLng(Centro));
 
-        Polyline line = mMap.addPolyline(new PolylineOptions()
-                .add(new LatLng(-17.774456, -63.179932), new LatLng(-17.780845, -63.172669))
-                .width(5)
-                .color(Color.RED));
     }
 
     public Grafo crearVertices(Grafo g){
@@ -94,10 +120,6 @@ public class RutaActivity extends FragmentActivity implements OnMapReadyCallback
         g.insertarArco("K","L",411);
         g.insertarArco("L","A",511);
 
-        return g;
-    }
-
-    public Grafo crearArcosRutaB(Grafo g){
         g.insertarArco("A","L",511);
         g.insertarArco("L","K",411);
         g.insertarArco("K","J",719);
@@ -110,8 +132,11 @@ public class RutaActivity extends FragmentActivity implements OnMapReadyCallback
         g.insertarArco("D","C",640);
         g.insertarArco("C","B",555);
         g.insertarArco("B","A",584);
+
+
         return g;
     }
+
 
     public String Dijkstra(String o,String d)
     {
@@ -123,6 +148,7 @@ public class RutaActivity extends FragmentActivity implements OnMapReadyCallback
         cc= G1.comparar(caminos,o,d);
         return cc;
     }
+
     public int DevCosto(String o,String d)
     {
         String c="";
@@ -133,6 +159,21 @@ public class RutaActivity extends FragmentActivity implements OnMapReadyCallback
         int x= G1.devolverCosto(caminos,o,d);
         return x;
     }
+
+    public void graficarMapa(String origen, String destino){
+        String dest = Dijkstra(origen,destino);
+        int i;
+        char[] aux=dest.toCharArray();
+        String[] s=new String[aux.length];
+
+        for(i=0;i<aux.length;i++)
+        {
+            s[i]=String.valueOf(aux[i]);
+        }
+
+        mostrarCamino(s);
+    }
+
     public void mostrarCamino(String[] x)
     {
 
@@ -141,17 +182,21 @@ public class RutaActivity extends FragmentActivity implements OnMapReadyCallback
             Vertice v1=G1.buscarVertice(x[i]);
             Vertice v2=G1.buscarVertice(x[i+1]);
 
-            Double lat1=v1.getLatitud();
-            Double lon1=v1.getLongitud();
-            Double lat2=v2.getLatitud();
-            Double lon2=v2.getLongitud();
+            Double lat1= v1.getLatitud();
+            Double lon1= v1.getLongitud();
+            Double lat2= v2.getLatitud();
+            Double lon2= v2.getLongitud();
 
-            Polyline line = mMap.addPolyline(new PolylineOptions()
-                    .add(new LatLng(lat1, lon1), new LatLng(lat2, lon2))
-                    .width(5)
-                    .color(Color.RED));
+            trazarLineaMapa(lat1, lon1, lat2, lon2);
         }
+
     }
 
+    public void trazarLineaMapa(Double lat1, Double log1, Double lat2, Double log2) {
+        Polyline line = mMap.addPolyline(new PolylineOptions()
+                .add(new LatLng(lat1, log1), new LatLng(lat2, log2))
+                .width(5)
+                .color(Color.RED));
+    }
 
 }

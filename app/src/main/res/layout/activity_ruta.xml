@@ -8,22 +8,34 @@
     android:orientation="vertical">
 
 
+    <Button
+        android:id="@+id/verCamino"
+        android:layout_width="200dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="124dp"
+        android:text="Mostrar Ruta"
+        map:layout_constraintBottom_toBottomOf="parent"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toBottomOf="@id/linearLayout6"
+        map:layout_constraintVertical_bias="0.968" />
+
     <LinearLayout
         android:id="@+id/linearLayout6"
-        android:layout_width="256dp"
-        android:layout_height="232dp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
         android:orientation="vertical"
         map:layout_constraintBottom_toBottomOf="parent"
         map:layout_constraintEnd_toEndOf="parent"
         map:layout_constraintStart_toStartOf="parent"
         map:layout_constraintTop_toTopOf="parent"
-        map:layout_constraintVertical_bias="0.096">
+        map:layout_constraintVertical_bias="0.0">
 
         <fragment
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="217dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             tools:context=".RutaActivity" />
 
@@ -94,8 +106,9 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout7"
         android:layout_width="252dp"
-        android:layout_height="88dp"
+        android:layout_height="100dp"
         android:orientation="vertical"
         map:layout_constraintBottom_toBottomOf="parent"
         map:layout_constraintEnd_toEndOf="parent"
@@ -124,6 +137,7 @@
             android:id="@+id/spinner2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
     </LinearLayout>
 
 

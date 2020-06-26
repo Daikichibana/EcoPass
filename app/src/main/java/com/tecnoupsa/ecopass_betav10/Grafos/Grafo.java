@@ -200,26 +200,22 @@ public class Grafo {
     }
     private String caminoCortoDFS(Vertice v,String d,String x)
     {
-
-        String[] s=new String[99];
         int i=0,j=1;
         v.marcado=true;
         while(i<v.LArcos.dim())
         {
-            x=x+v.getNombre();
+
             //jta.append(v.getNombre());
             Arco a=(Arco) v.LArcos.getElem(i);
             Vertice vo=buscarVertice(a.getNombreVertD());
             if(!vo.marcado)
             {
+                x=x+v.getNombre();
                 if(vo.getNombre().equals(d))
                 {
                     x=x+vo.getNombre();
                     //jta.append(vo.getNombre());
                     //jta.append("\n");
-
-
-
                 }
                 else
                 {
@@ -232,6 +228,7 @@ public class Grafo {
         }
         return x;
     }
+
     public String[] caminos(String m,String o,String d)
     {
         String[] caminos=m.split(d);
@@ -245,7 +242,7 @@ public class Grafo {
 
     public String comparar(String[] c,String o,String d)
     {
-        int co1=0,co2=0,costo=1000,m=cantidadCaminosDFS(o,d);
+        int co1=0,co2=0,costo=10000,m=cantidadCaminosDFS(o,d);
         String aux1 =null,aux2=null,x = null;
         if(m>1)
         {
@@ -273,9 +270,10 @@ public class Grafo {
             x=c[0];
         return x;
     }
+
     public int devolverCosto(String[] c,String o,String d)
     {
-        int co1=0,co2=0,costo=1000,m=cantidadCaminosDFS(o,d);
+        int co1=0,co2=0,costo=10000,m=cantidadCaminosDFS(o,d);
         String aux1 =null,aux2=null,x = null;
         if(m>1)
         {
@@ -300,9 +298,10 @@ public class Grafo {
             }
         }
         if(m==1)
-            x=c[0];
+            costo = costoTotal(c[0],o,d);
         return costo;
     }
+
     public int costoTotal(String x,String origen,String destino)
     {
         int c=0;
@@ -330,6 +329,7 @@ public class Grafo {
         }
         return c;
     }
+
     public int Costo(String x,String y)
     {
         int c=0;
