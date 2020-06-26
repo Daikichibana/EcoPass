@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,11 +37,20 @@ public class IniciarViaje extends AppCompatActivity {
     private TextView estado;
     String id;
     Usuario us;
+    Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciar_viaje);
+
+        btn = (Button) findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openNewActivity();
+            }
+        });
 
         QR = findViewById(R.id.QR);
         estado = findViewById(R.id.estado);
@@ -52,6 +63,7 @@ public class IniciarViaje extends AppCompatActivity {
         if(us!=null)
             generarQR(id);
     }
+
 
     //Genera el codigo QR
     public void generarQR(String id){
@@ -162,4 +174,10 @@ public class IniciarViaje extends AppCompatActivity {
         else
             return null;
     }
+    public void openNewActivity(){
+        Intent intent = new Intent(this, DestinoFinal.class);
+        startActivity(intent);
+       }
+
+
 }
