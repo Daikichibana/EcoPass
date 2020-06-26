@@ -81,57 +81,77 @@ public class RutaActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public Grafo crearArcosRutaA(Grafo g){
-        g.insertarArco("A","B",5);
-        g.insertarArco("B","C",0);
-        g.insertarArco("C","D",0);
-        g.insertarArco("D","E",0);
-        g.insertarArco("E","F",0);
-        g.insertarArco("F","G",0);
-        g.insertarArco("G","H",0);
-        g.insertarArco("H","I",0);
-        g.insertarArco("I","J",0);
-        g.insertarArco("J","K",0);
-        g.insertarArco("K","L",0);
-        g.insertarArco("L","A",0);
+        g.insertarArco("A","B",584);
+        g.insertarArco("B","C",555);
+        g.insertarArco("C","D",640);
+        g.insertarArco("D","E",511);
+        g.insertarArco("E","F",490);
+        g.insertarArco("F","G",528);
+        g.insertarArco("G","H",722);
+        g.insertarArco("H","I",347);
+        g.insertarArco("I","J",633);
+        g.insertarArco("J","K",719);
+        g.insertarArco("K","L",411);
+        g.insertarArco("L","A",511);
 
         return g;
     }
 
     public Grafo crearArcosRutaB(Grafo g){
-        g.insertarArco("A","L",5);
-        g.insertarArco("L","K",0);
-        g.insertarArco("K","J",0);
-        g.insertarArco("J","I",0);
-        g.insertarArco("I","H",0);
-        g.insertarArco("H","G",0);
-        g.insertarArco("G","F",0);
-        g.insertarArco("F","E",0);
-        g.insertarArco("E","D",0);
-        g.insertarArco("D","C",0);
-        g.insertarArco("C","B",0);
-        g.insertarArco("B","A",0);
+        g.insertarArco("A","L",511);
+        g.insertarArco("L","K",411);
+        g.insertarArco("K","J",719);
+        g.insertarArco("J","I",633);
+        g.insertarArco("I","H",347);
+        g.insertarArco("H","G",722);
+        g.insertarArco("G","F",528);
+        g.insertarArco("F","E",490);
+        g.insertarArco("E","D",511);
+        g.insertarArco("D","C",640);
+        g.insertarArco("C","B",555);
+        g.insertarArco("B","A",584);
         return g;
     }
 
-    public String Dijkstra(Grafo g,String o,String d)
+    public String Dijkstra(String o,String d)
     {
         String c=new String();
         String[] caminos;
         String cc;
         c= G1.caminoCortoDFS(o,d);
         caminos= G1.caminos(c,o,d);
-        cc= G2.comparar(caminos,o,d);
+        cc= G1.comparar(caminos,o,d);
         return cc;
     }
     public int DevCosto(String o,String d)
     {
-        String c=new String();
+        String c="";
         String[] caminos;
-        int x;
+        String cc;
         c= G1.caminoCortoDFS(o,d);
         caminos= G1.caminos(c,o,d);
-        x= G2.devolverCosto(caminos,o,d);
+        int x= G1.devolverCosto(caminos,o,d);
         return x;
     }
+    public void mostrarCamino(String[] x)
+    {
+
+        for(int i=0;i<x.length-1;i++)
+        {
+            Vertice v1=G1.buscarVertice(x[i]);
+            Vertice v2=G1.buscarVertice(x[i+1]);
+
+            Double lat1=v1.getLatitud();
+            Double lon1=v1.getLongitud();
+            Double lat2=v2.getLatitud();
+            Double lon2=v2.getLongitud();
+
+            Polyline line = mMap.addPolyline(new PolylineOptions()
+                    .add(new LatLng(lat1, lon1), new LatLng(lat2, lon2))
+                    .width(5)
+                    .color(Color.RED));
+        }
+    }
+
 
 }
