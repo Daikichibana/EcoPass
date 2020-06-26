@@ -45,7 +45,6 @@ public class LoginActivity extends AppCompatActivity  {
                     Conectar(id);
                 }
             });
-
     }
 
     public void Conectar(String ID){

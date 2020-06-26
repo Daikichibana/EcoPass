@@ -9,8 +9,13 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -22,11 +27,17 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.tecnoupsa.ecopass_betav10.Grafos.Grafo;
 import com.tecnoupsa.ecopass_betav10.Grafos.Vertice;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class RutaActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     Grafo G1;
-    Grafo G2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +55,8 @@ public class RutaActivity extends FragmentActivity implements OnMapReadyCallback
         Button verCamino;
         Spinner spinner;
         Spinner spinner2;
+        TextView puntos;
+
         //Cargar los grafos
         G1 = crearVertices(new Grafo());
         G1 = crearArcosRutaA(G1);
@@ -52,9 +65,10 @@ public class RutaActivity extends FragmentActivity implements OnMapReadyCallback
         cargarMarkers();
         mMap.animateCamera( CameraUpdateFactory.zoomTo( 14.0f ) );
         verCamino = findViewById(R.id.verCamino);
-
+        puntos = findViewById(R.id.txtPuntos);
         spinner = (Spinner) findViewById(R.id.spinner);
         spinner2 = (Spinner) findViewById(R.id.spinner2);
+
 
         String[] datos = new String[] {"A", "B", "C", "D", "E","F","G","H","I","J","K","L"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -71,7 +85,10 @@ public class RutaActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.clear();
                 cargarMarkers();
                 graficarMapa(origen,destino);
+                String camino = Dijkstra(origen,destino);
+                puntos.setText(String.valueOf(costoCamino(camino)));
             }
+
         });
     }
 //comentario
@@ -198,5 +215,53 @@ public class RutaActivity extends FragmentActivity implements OnMapReadyCallback
                 .width(5)
                 .color(Color.RED));
     }
+
+    public int costoCamino(String camino)
+    {
+        int x=0;
+        char[] c=camino.toCharArray();
+        int p=c.length;
+        if(p==0)
+            x=0;
+        else
+        {
+            if(p==2)
+                x=7;
+            else
+            {
+                if(p==3)
+                    x=15;
+                else
+                {
+                    if(p>3&&p<=7)
+                        x=30;
+                    else
+                    {
+                        if(p>7)
+                            x=45;
+                    }
+                }
+            }
+        }
+        return x;
+    }
+
+    public boolean comprobar(String camino,int c)
+    {
+        boolean b=false;
+        int aux=costoCamino(camino);
+        int dif=c-aux;
+        if(dif>0)
+            b=true;
+        return b;
+    }
+
+    public int restar(int costo,int caja)
+    {
+        caja=caja-costo;
+        return caja;
+    }
+
+
 
 }

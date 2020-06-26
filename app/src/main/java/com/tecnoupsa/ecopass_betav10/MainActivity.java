@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     Button iniciarViaje;
     Button verRutas;
     Usuario us;
-    Estado estPuntos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
         iniciarViaje = (Button) findViewById(R.id.btnIniciarViaje);
         verRutas = (Button) findViewById(R.id.btnVerRuta);
-        estPuntos = new Estado();
         tv1 = (TextView) findViewById(R.id.txtMainNombre);
         tv2 = (TextView) findViewById(R.id.txtPuntos);
         us = obtenerDatosUsuario();

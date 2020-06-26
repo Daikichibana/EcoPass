@@ -22,6 +22,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
 import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.tecnoupsa.ecopass_betav10.Clases.Estado;
 import com.tecnoupsa.ecopass_betav10.Clases.Usuario;
 
 import org.json.JSONException;
@@ -59,6 +60,8 @@ public class IniciarViaje extends AppCompatActivity {
 
         us = obtenerDatosUsuario();
         id = us.getId();
+
+
 
         if(us!=null)
             generarQR(id);
@@ -174,6 +177,9 @@ public class IniciarViaje extends AppCompatActivity {
         else
             return null;
     }
+
+
+
     public void openNewActivity(){
         Intent intent = new Intent(this, usuarioViajando.class);
         startActivity(intent);
