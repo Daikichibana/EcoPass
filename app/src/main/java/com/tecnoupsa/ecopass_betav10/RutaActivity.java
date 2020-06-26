@@ -2,27 +2,18 @@ package com.tecnoupsa.ecopass_betav10;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.Toast;
-
-import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.common.Priority;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.tecnoupsa.ecopass_betav10.Grafos.Grafo;
 import com.tecnoupsa.ecopass_betav10.Grafos.Vertice;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RutaActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -53,7 +44,7 @@ public class RutaActivity extends FragmentActivity implements OnMapReadyCallback
         cargarMarkers();
         mMap.animateCamera( CameraUpdateFactory.zoomTo( 14.0f ) );
     }
-
+//comentario
     public void cargarMarkers(){
         int i = 0;
         while(i<G1.LVertices.dim()){
@@ -66,6 +57,11 @@ public class RutaActivity extends FragmentActivity implements OnMapReadyCallback
         }
         LatLng Centro = new LatLng(-17.783237, -63.182255); //Enfoca la camara hacia el centro de la ciudad
         mMap.moveCamera(CameraUpdateFactory.newLatLng(Centro));
+
+        Polyline line = mMap.addPolyline(new PolylineOptions()
+                .add(new LatLng(-17.774456, -63.179932), new LatLng(-17.780845, -63.172669))
+                .width(5)
+                .color(Color.RED));
     }
 
     public Grafo crearVertices(Grafo g){
