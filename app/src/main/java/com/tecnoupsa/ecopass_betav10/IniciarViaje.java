@@ -175,7 +175,7 @@ public class IniciarViaje extends AppCompatActivity {
             return null;
     }
     public void openNewActivity(){
-        Intent intent = new Intent(this, DestinoFinal.class);
+        Intent intent = new Intent(this, usuarioViajando.class);
         startActivity(intent);
        }
 

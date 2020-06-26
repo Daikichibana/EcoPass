@@ -3,7 +3,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +24,11 @@ import com.tecnoupsa.ecopass_betav10.Clases.Usuario;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -32,6 +38,7 @@ public class usuarioViajando extends AppCompatActivity {
     String id = "";
     ImageView QR;
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comienzo_viaje);
@@ -44,6 +51,11 @@ public class usuarioViajando extends AppCompatActivity {
             generarQR(id);
         }
         Toast.makeText(usuarioViajando.this, "Que tengas un buen viaje!", Toast.LENGTH_SHORT).show();
+
+        String currentDateTimeString = java.text.DateFormat.getDateTimeInstance().format(new Date());
+        TextView Hora = findViewById(R.id.txtHora);
+        Hora.setText(currentDateTimeString);
+
     }
 
     public void generarQR(String id){
@@ -151,6 +163,8 @@ public class usuarioViajando extends AppCompatActivity {
         else
             return null;
     }
+
+
 
 
 }
